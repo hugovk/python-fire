@@ -18,7 +18,7 @@ import sys
 
 import fire
 from fire import testutils
-import mock
+from unittest import mock
 
 
 class FireImportTest(testutils.BaseTestCase):

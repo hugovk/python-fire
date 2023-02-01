@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*- #
 # Copyright 2018 Google LLC. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +13,11 @@
 # limitations under the License.
 """Semantic text objects that are used for styled outputting."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import unicode_literals
 
 import enum
 
 
-class TextAttributes(object):
+class TextAttributes:
   """Attributes to use to style text with."""
 
   def __init__(self, format_str=None, color=None, attrs=None):
@@ -50,7 +46,7 @@ class TextAttributes(object):
     return self._attrs
 
 
-class TypedText(object):
+class TypedText:
   """Text with a semantic type that will be used for styling."""
 
   def __init__(self, texts, text_type=None):

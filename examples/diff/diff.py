@@ -61,7 +61,7 @@ import time
 import fire
 
 
-class DiffLibWrapper(object):
+class DiffLibWrapper:
   """Provides a simple interface to the difflib module.
 
   The purpose of this simple interface is to offer a limited subset of the

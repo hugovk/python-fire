@@ -36,9 +36,6 @@ This modules aims to resolve that problem, providing custom summaries and
 descriptions for primitive typed values.
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 from fire import formatting
 import six
@@ -63,16 +60,9 @@ def NeedsCustomDescription(component):
   Returns:
     Whether the component should use a custom description and summary.
   """
-  type_ = type(component)
-  if (type_ in six.string_types
-      or type_ in six.integer_types
-      or type_ is six.text_type
-      or type_ is six.binary_type
-      or type_ in (float, complex, bool)
-      or type_ in (dict, tuple, list, set, frozenset)
-     ):
-    return True
-  return False
+  return type(component) in (
+     (str, int, bytes, float, complex, bool, dict, tuple, list, set, frozenset)
+  )
 
 
 def GetStringTypeSummary(obj, available_space, line_length):

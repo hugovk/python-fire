@@ -14,9 +14,6 @@
 
 """Fuzz tests for the parser module."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 from fire import parser
 from fire import testutils
@@ -58,7 +55,7 @@ class ParserFuzzTest(testutils.BaseTestCase):
       result = parser.DefaultParseValue(value)
     except TypeError:
       # It's OK to get a TypeError if the string has the null character.
-      if u'\x00' in value:
+      if '\x00' in value:
         return
       raise
     except MemoryError:
@@ -68,8 +65,8 @@ class ParserFuzzTest(testutils.BaseTestCase):
       raise
 
     try:
-      uvalue = six.text_type(value)
-      uresult = six.text_type(result)
+      uvalue = str(value)
+      uresult = str(result)
     except UnicodeDecodeError:
       # This is not what we're testing.
       return
@@ -86,7 +83,7 @@ class ParserFuzzTest(testutils.BaseTestCase):
     if '#' in value:
       max_distance += len(value) - value.index('#')
 
-    if not isinstance(result, six.string_types):
+    if not isinstance(result, str):
       max_distance += value.count('0')  # Leading 0s are stripped.
 
     # Note: We don't check distance for dicts since item order can be changed.

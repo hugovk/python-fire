@@ -14,9 +14,6 @@
 
 """This module has components that are used for testing Python Fire."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 import collections
 import enum
@@ -24,8 +21,7 @@ import functools
 
 import six
 
-if six.PY3:
-  from fire import test_components_py3 as py3  # pylint: disable=unused-import,no-name-in-module,g-import-not-at-top
+from fire import test_components_py3 as py3  # pylint: disable=unused-import,no-name-in-module,g-import-not-at-top
 
 
 def identity(arg1, arg2, arg3=10, arg4=20, *arg5, **arg6):  # pylint: disable=keyword-arg-before-vararg
@@ -50,7 +46,7 @@ def function_with_help(help=True):  # pylint: disable=redefined-builtin
   return help
 
 
-class Empty(object):
+class Empty:
   pass
 
 
@@ -58,20 +54,20 @@ class OldStyleEmpty:  # pylint: disable=old-style-class,no-init
   pass
 
 
-class WithInit(object):
+class WithInit:
 
   def __init__(self):
     pass
 
 
-class ErrorInConstructor(object):
+class ErrorInConstructor:
 
   def __init__(self, value='value'):
     self.value = value
     raise ValueError('Error in constructor')
 
 
-class WithHelpArg(object):
+class WithHelpArg:
   """Test class for testing when class has a help= arg."""
 
   def __init__(self, help=True):  # pylint: disable=redefined-builtin
@@ -79,7 +75,7 @@ class WithHelpArg(object):
     self.dictionary = {'__help': 'help in a dict'}
 
 
-class NoDefaults(object):
+class NoDefaults:
 
   def double(self, count):
     return 2 * count
@@ -88,7 +84,7 @@ class NoDefaults(object):
     return 3 * count
 
 
-class WithDefaults(object):
+class WithDefaults:
   """Class with functions that have default arguments."""
 
   def double(self, count=0):
@@ -122,7 +118,7 @@ class OldStyleWithDefaults:  # pylint: disable=old-style-class,no-init
     return 3 * count
 
 
-class MixedDefaults(object):
+class MixedDefaults:
 
   def ten(self):
     return 10
@@ -134,7 +130,7 @@ class MixedDefaults(object):
     return alpha, beta
 
 
-class SimilarArgNames(object):
+class SimilarArgNames:
 
   def identity(self, bool_one=False, bool_two=False):
     return bool_one, bool_two
@@ -143,13 +139,13 @@ class SimilarArgNames(object):
     return a, alpha
 
 
-class CapitalizedArgNames(object):
+class CapitalizedArgNames:
 
   def sum(self, Delta=1.0, Gamma=2.0):  # pylint: disable=invalid-name
     return Delta + Gamma
 
 
-class Annotations(object):
+class Annotations:
 
   def double(self, count=0):
     return 2 * count
@@ -161,7 +157,7 @@ class Annotations(object):
   triple.__annotations__ = {'count': float}
 
 
-class TypedProperties(object):
+class TypedProperties:
   """Test class for testing Python Fire with properties of various types."""
 
   def __init__(self):
@@ -180,7 +176,7 @@ class TypedProperties(object):
     self.gamma = 'myexcitingstring'
 
 
-class VarArgs(object):
+class VarArgs:
   """Test class for testing Python Fire with a property with varargs."""
 
   def cumsums(self, *items):
@@ -198,7 +194,7 @@ class VarArgs(object):
     return alpha, beta, ''.join(chars)
 
 
-class Underscores(object):
+class Underscores:
 
   def __init__(self):
     self.underscore_example = 'fish fingers'
@@ -207,20 +203,20 @@ class Underscores(object):
     return underscore_arg
 
 
-class BoolConverter(object):
+class BoolConverter:
 
   def as_bool(self, arg=False):
     return bool(arg)
 
 
-class ReturnsObj(object):
+class ReturnsObj:
 
   def get_obj(self, *items):
     del items  # Unused
     return BoolConverter()
 
 
-class NumberDefaults(object):
+class NumberDefaults:
 
   def reciprocal(self, divisor=10.0):
     return 1.0 / divisor
@@ -229,7 +225,7 @@ class NumberDefaults(object):
     return 1.0 / divisor
 
 
-class InstanceVars(object):
+class InstanceVars:
 
   def __init__(self, arg1, arg2):
     self.arg1 = arg1
@@ -239,7 +235,7 @@ class InstanceVars(object):
     return (self.arg1, self.arg2, arg1, arg2)
 
 
-class Kwargs(object):
+class Kwargs:
 
   def props(self, **kwargs):
     return kwargs
@@ -251,13 +247,13 @@ class Kwargs(object):
     return (positional, named, kwargs)
 
 
-class ErrorRaiser(object):
+class ErrorRaiser:
 
   def fail(self):
     raise ValueError('This error is part of a test.')
 
 
-class NonComparable(object):
+class NonComparable:
 
   def __eq__(self, other):
     raise ValueError('Instances of this class cannot be compared.')
@@ -266,7 +262,7 @@ class NonComparable(object):
     raise ValueError('Instances of this class cannot be compared.')
 
 
-class EmptyDictOutput(object):
+class EmptyDictOutput:
 
   def totally_empty(self):
     return {}
@@ -275,7 +271,7 @@ class EmptyDictOutput(object):
     return {'__do_not_print_me': 1}
 
 
-class CircularReference(object):
+class CircularReference:
 
   def create(self):
     x = {}
@@ -283,7 +279,7 @@ class CircularReference(object):
     return x
 
 
-class OrderedDictionary(object):
+class OrderedDictionary:
 
   def empty(self):
     return collections.OrderedDict()
@@ -295,7 +291,7 @@ class OrderedDictionary(object):
     return ordered_dict
 
 
-class NamedTuple(object):
+class NamedTuple:
   """Functions returning named tuples used for testing."""
 
   def point(self):
@@ -311,7 +307,7 @@ class NamedTuple(object):
     return Point(x='x', y='y')
 
 
-class CallableWithPositionalArgs(object):
+class CallableWithPositionalArgs:
   """Test class for supporting callable."""
 
   TEST = 1
@@ -333,12 +329,12 @@ class SubPoint(NamedTuplePoint):
     return self.x + self.y
 
 
-class CallableWithKeywordArgument(object):
+class CallableWithKeywordArgument:
   """Test class for supporting callable."""
 
   def __call__(self, **kwargs):
     for key, value in kwargs.items():
-      print('%s: %s' % (key, value))
+      print('{}: {}'.format(key, value))
 
   def print_msg(self, msg):
     print(msg)
@@ -347,7 +343,7 @@ class CallableWithKeywordArgument(object):
 CALLABLE_WITH_KEYWORD_ARGUMENT = CallableWithKeywordArgument()
 
 
-class ClassWithDocstring(object):
+class ClassWithDocstring:
   """Test class for testing help text output.
 
   This is some detail description of this test class.
@@ -370,7 +366,7 @@ class ClassWithDocstring(object):
     print(msg)
 
 
-class ClassWithMultilineDocstring(object):
+class ClassWithMultilineDocstring:
   """Test class for testing help text output with multiline docstring.
 
   This is a test class that has a long docstring description that spans across
@@ -395,8 +391,7 @@ class ClassWithMultilineDocstring(object):
         [0, 1, 2, 3]
 
     """
-    for i in range(n):
-      yield i
+    yield from range(n)
 
 
 def simple_set():
@@ -421,7 +416,7 @@ class Color(enum.Enum):
   BLUE = 3
 
 
-class HasStaticAndClassMethods(object):
+class HasStaticAndClassMethods:
   """A class with a static method and a class method."""
 
   CLASS_STATE = 1
@@ -475,7 +470,7 @@ def fn_with_code_in_docstring():
   return True
 
 
-class BinaryCanvas(object):
+class BinaryCanvas:
   """A canvas with which to make binary art, one bit at a time."""
 
   def __init__(self, size=10):
@@ -508,7 +503,7 @@ class BinaryCanvas(object):
     return self
 
 
-class DefaultMethod(object):
+class DefaultMethod:
 
   def double(self, number):
     return 2 * number
@@ -519,7 +514,7 @@ class DefaultMethod(object):
     return _missing
 
 
-class InvalidProperty(object):
+class InvalidProperty:
 
   def double(self, number):
     return 2 * number

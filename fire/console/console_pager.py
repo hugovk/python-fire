@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*- #
 # Copyright 2015 Google LLC. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +14,6 @@
 
 """Simple console pager."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import unicode_literals
 
 import re
 import sys
@@ -25,7 +21,7 @@ import sys
 from fire.console import console_attr
 
 
-class Pager(object):
+class Pager:
   """A simple console text pager.
 
   This pager requires the entire contents to be available. The contents are
@@ -112,7 +108,7 @@ class Pager(object):
       prompt = '{bold}--({{percent}}%)--{normal}'.format(
           bold=self._attr.GetFontCode(bold=True),
           normal=self._attr.GetFontCode())
-    self._clear = '\r{0}\r'.format(' ' * (self._attr.DisplayWidth(prompt) - 6))
+    self._clear = '\r{}\r'.format(' ' * (self._attr.DisplayWidth(prompt) - 6))
     self._prompt = prompt
 
     # Initialize a list of lines with long lines split into separate display

@@ -14,9 +14,6 @@
 
 """Utilities for Python Fire's tests."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 import contextlib
 import os
@@ -27,7 +24,7 @@ import unittest
 from fire import core
 from fire import trace
 
-import mock
+from unittest import mock
 import six
 
 
@@ -74,9 +71,9 @@ class BaseTestCase(unittest.TestCase):
 
   def assertRaisesRegex(self, *args, **kwargs):  # pylint: disable=arguments-differ
     if sys.version_info.major == 2:
-      return super(BaseTestCase, self).assertRaisesRegexp(*args, **kwargs)  # pylint: disable=deprecated-method
+      return super().assertRaisesRegexp(*args, **kwargs)  # pylint: disable=deprecated-method
     else:
-      return super(BaseTestCase, self).assertRaisesRegex(*args, **kwargs)  # pylint: disable=no-member
+      return super().assertRaisesRegex(*args, **kwargs)  # pylint: disable=no-member
 
   @contextlib.contextmanager
   def assertRaisesFireExit(self, code, regexp='.*'):

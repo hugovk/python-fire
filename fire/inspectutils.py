@@ -14,9 +14,6 @@
 
 """Inspection utility functions for Python Fire."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 import inspect
 import sys
@@ -30,7 +27,7 @@ if six.PY34:
   import asyncio  # pylint: disable=import-error,g-import-not-at-top  # pytype: disable=import-error
 
 
-class FullArgSpec(object):
+class FullArgSpec:
   """The arguments of a function, as in Python 3's inspect.FullArgSpec."""
 
   def __init__(self, args=None, varargs=None, varkw=None, defaults=None,
@@ -189,13 +186,9 @@ def GetFullArgSpec(fn):
     if sys.version_info[0:2] >= (3, 5):
       (args, varargs, varkw, defaults,
        kwonlyargs, kwonlydefaults, annotations) = Py3GetFullArgSpec(fn)
-    elif six.PY3:  # Specifically Python 3.4.
+    else:  # Specifically Python 3.4.
       (args, varargs, varkw, defaults,
        kwonlyargs, kwonlydefaults, annotations) = inspect.getfullargspec(fn)  # pylint: disable=deprecated-method,no-member
-    else:  # six.PY2
-      args, varargs, varkw, defaults = Py2GetArgSpec(fn)
-      kwonlyargs = kwonlydefaults = None
-      annotations = getattr(fn, '__annotations__', None)
 
   except TypeError:
     # If we can't get the argspec, how do we know if the fn should take args?
@@ -253,7 +246,7 @@ def GetFileAndLine(component):
   try:
     unused_code, lineindex = inspect.findsource(component)
     lineno = lineindex + 1
-  except (IOError, IndexError):
+  except (OSError, IndexError):
     lineno = None
 
   return filename, lineno
@@ -292,7 +285,7 @@ def Info(component):
   try:
     unused_code, lineindex = inspect.findsource(component)
     info['line'] = lineindex + 1
-  except (TypeError, IOError):
+  except (TypeError, OSError):
     info['line'] = None
 
   if 'docstring' in info:

@@ -17,7 +17,7 @@
 import fire
 
 
-class Widget(object):
+class Widget:
 
   def whack(self, n=1):
     """Prints "whack!" n times."""

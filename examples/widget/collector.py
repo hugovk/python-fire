@@ -19,7 +19,7 @@ import fire
 from examples.widget import widget
 
 
-class Collector(object):
+class Collector:
   """A Collector has one Widget, but wants more."""
 
   def __init__(self):

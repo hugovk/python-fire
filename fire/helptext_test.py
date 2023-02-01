@@ -14,9 +14,6 @@
 
 """Tests for the helptext module."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 import os
 import sys
@@ -33,7 +30,7 @@ import six
 class HelpTest(testutils.BaseTestCase):
 
   def setUp(self):
-    super(HelpTest, self).setUp()
+    super().setUp()
     os.environ['ANSI_COLORS_DISABLED'] = '1'
 
   def testHelpTextNoDefaults(self):

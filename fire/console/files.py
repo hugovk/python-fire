@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*- #
 # Copyright 2013 Google LLC. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +14,6 @@
 
 """Some general file utilities used that can be used by the Cloud SDK."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import unicode_literals
 
 import os
 
@@ -48,8 +44,8 @@ def _FindExecutableOnPath(executable, path, pathext):
     ValueError: invalid input.
   """
 
-  if isinstance(pathext, six.string_types):
-    raise ValueError('_FindExecutableOnPath(..., pathext=\'{0}\') failed '
+  if isinstance(pathext, str):
+    raise ValueError('_FindExecutableOnPath(..., pathext=\'{}\') failed '
                      'because pathext must be an iterable of strings, but got '
                      'a string.'.format(pathext))
 
@@ -97,11 +93,11 @@ def FindExecutableOnPath(executable, path=None, pathext=None,
   """
 
   if not allow_extensions and os.path.splitext(executable)[1]:
-    raise ValueError('FindExecutableOnPath({0},...) failed because first '
+    raise ValueError('FindExecutableOnPath({},...) failed because first '
                      'argument must not have an extension.'.format(executable))
 
   if os.path.dirname(executable):
-    raise ValueError('FindExecutableOnPath({0},...) failed because first '
+    raise ValueError('FindExecutableOnPath({},...) failed because first '
                      'argument must not have a path.'.format(executable))
 
   if path is None:

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*- #
 # Copyright 2013 Google LLC. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +14,6 @@
 
 """Utilities for determining the current platform and architecture."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import unicode_literals
 
 import os
 import platform
@@ -42,15 +38,15 @@ class InvalidEnumValue(Error):  # pylint: disable=g-bad-exception-name
         parse.
       options: list(str), The valid values for this enum.
     """
-    super(InvalidEnumValue, self).__init__(
-        'Could not parse [{0}] into a valid {1}.  Valid values are [{2}]'
+    super().__init__(
+        'Could not parse [{}] into a valid {}.  Valid values are [{}]'
         .format(given, enum_type, ', '.join(options)))
 
 
-class OperatingSystem(object):
+class OperatingSystem:
   """An enum representing the operating system you are running on."""
 
-  class _OS(object):
+  class _OS:
     """A single operating system."""
 
     # pylint: disable=redefined-builtin
@@ -161,10 +157,10 @@ class OperatingSystem(object):
     return OperatingSystem.Current() is OperatingSystem.WINDOWS
 
 
-class Architecture(object):
+class Architecture:
   """An enum representing the system architecture you are running on."""
 
-  class _ARCH(object):
+  class _ARCH:
     """A single architecture."""
 
     # pylint: disable=redefined-builtin
@@ -270,7 +266,7 @@ class Architecture(object):
     return Architecture._MACHINE_TO_ARCHITECTURE.get(platform.machine().lower())
 
 
-class Platform(object):
+class Platform:
   """Holds an operating system and architecture."""
 
   def __init__(self, operating_system, architecture):
@@ -375,7 +371,7 @@ class Platform(object):
     return args
 
 
-class PythonVersion(object):
+class PythonVersion:
   """Class to validate the Python version we are using.
 
   The Cloud SDK officially supports Python 2.7.
@@ -406,13 +402,13 @@ the CLOUDSDK_PYTHON environment variable to point to it.
 
   def SupportedVersionMessage(self, allow_py3):
     if allow_py3:
-      return 'Please use Python version {0}.{1}.x or {2}.{3} and up.'.format(
+      return 'Please use Python version {}.{}.x or {}.{} and up.'.format(
           PythonVersion.MIN_SUPPORTED_PY2_VERSION[0],
           PythonVersion.MIN_SUPPORTED_PY2_VERSION[1],
           PythonVersion.MIN_SUPPORTED_PY3_VERSION[0],
           PythonVersion.MIN_SUPPORTED_PY3_VERSION[1])
     else:
-      return 'Please use Python version {0}.{1}.x.'.format(
+      return 'Please use Python version {}.{}.x.'.format(
           PythonVersion.MIN_SUPPORTED_PY2_VERSION[0],
           PythonVersion.MIN_SUPPORTED_PY2_VERSION[1])
 
@@ -440,25 +436,25 @@ the CLOUDSDK_PYTHON environment variable to point to it.
     if not self.version:
       # We don't know the version, not a good sign.
       error = ('ERROR: Your current version of Python is not compatible with '
-               'the Google Cloud SDK. {0}\n'
+               'the Google Cloud SDK. {}\n'
                .format(self.SupportedVersionMessage(allow_py3)))
     else:
       if self.version[0] < 3:
         # Python 2 Mode
         if self.version < PythonVersion.MIN_REQUIRED_PY2_VERSION:
-          error = ('ERROR: Python {0}.{1} is not compatible with the Google '
-                   'Cloud SDK. {2}\n'
+          error = ('ERROR: Python {}.{} is not compatible with the Google '
+                   'Cloud SDK. {}\n'
                    .format(self.version[0], self.version[1],
                            self.SupportedVersionMessage(allow_py3)))
       else:
         # Python 3 Mode
         if not allow_py3:
           error = ('ERROR: Python 3 and later is not compatible with the '
-                   'Google Cloud SDK. {0}\n'
+                   'Google Cloud SDK. {}\n'
                    .format(self.SupportedVersionMessage(allow_py3)))
         elif self.version < PythonVersion.MIN_SUPPORTED_PY3_VERSION:
-          error = ('ERROR: Python {0}.{1} is not compatible with the Google '
-                   'Cloud SDK. {2}\n'
+          error = ('ERROR: Python {}.{} is not compatible with the Google '
+                   'Cloud SDK. {}\n'
                    .format(self.version[0], self.version[1],
                            self.SupportedVersionMessage(allow_py3)))
 
@@ -474,8 +470,8 @@ the CLOUDSDK_PYTHON environment variable to point to it.
         self.version < self.MIN_SUPPORTED_PY2_VERSION):
       sys.stderr.write("""\
 WARNING:  Python 2.6.x is no longer officially supported by the Google Cloud SDK
-and may not function correctly.  {0}
-{1}""".format(self.SupportedVersionMessage(allow_py3),
+and may not function correctly.  {}
+{}""".format(self.SupportedVersionMessage(allow_py3),
               PythonVersion.ENV_VAR_MESSAGE))
 
     return True

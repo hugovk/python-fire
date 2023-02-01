@@ -29,9 +29,6 @@ Help screens are shown in a less-style console view, and contain detailed help
 information.
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 import collections
 import itertools
@@ -788,7 +785,7 @@ def _CreateAvailabilityLine(header, items,
   return indented_header + indented_items_text[len(indented_header):] + '\n'
 
 
-class ActionGroup(object):
+class ActionGroup:
   """A group of actions of the same kind."""
 
   def __init__(self, name, plural):

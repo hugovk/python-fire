@@ -14,9 +14,6 @@
 
 """Types of values."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 import inspect
 
@@ -24,7 +21,7 @@ from fire import inspectutils
 import six
 
 
-VALUE_TYPES = (bool, six.string_types, six.integer_types, float, complex,
+VALUE_TYPES = (bool, str, int, float, complex,
                type(Ellipsis), type(None), type(NotImplemented))
 
 
